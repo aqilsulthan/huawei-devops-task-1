@@ -1,0 +1,22 @@
+{
+  "name": "huawei-devops-task1",
+  "version": "1.0.0",
+  "description": "A simple Express server to handle form submissions.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  },
+  "license": "ISC",
+  "keywords": [],
+  "author": "",
+  "type": "commonjs"
+}

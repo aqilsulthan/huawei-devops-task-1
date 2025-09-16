@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Huawei DevOps - Task 1</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <main class="container">
+      <h1>Huawei DevOps - Task 1</h1>
+
+      <section class="card">
+        <h2>Submit Form</h2>
+        <form id="form">
+          <div class="row">
+            <label>Name</label>
+            <input type="text" name="name" placeholder="Your name" required />
+          </div>
+          <div class="row">
+            <label>Email</label>
+            <input type="email" name="email" placeholder="you@example.com" required />
+          </div>
+          <div class="row">
+            <label>Message</label>
+            <textarea name="message" placeholder="Write your message here" required></textarea>
+          </div>
+          <button type="submit">Send</button>
+        </form>
+        
+        <pre id="result" class="result"></pre>
+      </section>
+
+      <section class="card">
+  <h2>Stored Records</h2>
+  <div class="toolbar">
+    
+    <input id="filter-input" type="text"
+           placeholder="Filter by name or email"
+           aria-label="Filter by name or email" />
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+>

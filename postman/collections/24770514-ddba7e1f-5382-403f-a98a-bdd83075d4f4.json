@@ -1,0 +1,838 @@
+{
+	"info": {
+		"_postman_id": "24770514-ddba7e1f-5382-403f-a98a-bdd83075d4f4",
+		"name": "Huawei DevOps task 1 test (Backend)",
+		"description": "Backend tests for POST /form, GET /form, and search (?search=) with error tests (400/404/409).\n\nApp repository: github.com/aqilsulthan/huawei-devops-task-1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check (GET /health)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.to.have.status(200));",
+							"const json = pm.response.json();",
+							"pm.test(\"status UP\", () => pm.expect(json.status).to.eql(\"UP\"));"
+						],
+						"type": "text/javascript",
+						"id": "411dc706-dd4e-479f-9c54-8aa72ce7d9dc"
+					}
+				}
+			],
+			"id": "24770514-7dbd83ed-92a1-47d0-8523-084e5fe7936e",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "24770514-c3e087ce-d256-403a-a568-d15bfbbd268e",
+					"name": "Health Check (GET /health)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "49"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"31-B9AfOsr6VqL31LXbrp6+yBtkQ+c\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Sep 2025 08:04:44 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"status\": \"UP\",\n    \"time\": \"2025-09-15T08:04:44.841Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create OK (POST /form)",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const ts = Date.now();",
+							"pm.environment.set('email_saved', `aqil_${ts}@example.com`);"
+						],
+						"type": "text/javascript",
+						"id": "2973cdc9-28c8-4ce7-a216-84cc5199cc74"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"201 Created\", () => pm.response.to.have.status(201));",
+							"const json = pm.response.json();",
+							"pm.test(\"ok true\", () => pm.expect(json.ok).to.be.true);",
+							"pm.test(\"email echoed = email_saved\", () => pm.expect(json.data.email).to.eql(pm.environment.get('email_saved')));"
+						],
+						"type": "text/javascript",
+						"id": "23fd1089-5004-4904-9e86-66ec9ff95b97"
+					}
+				}
+			],
+			"id": "24770514-c8fde7de-aa03-4650-a053-7687bda9f9d5",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Aqil\",\n  \"email\": \"{{email_saved}}\",\n  \"message\": \"Hello Huawei!\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/form",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"form"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "24770514-3bbf32d3-f809-4ef4-8966-47077c5be836",
+					"name": "Create OK (POST /form)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Aqil Sulthan\",\n  \"email\": \"aqilsulthaan@gmail.com\",\n  \"message\": \"Hello Huawei!\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/form",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"form"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "140"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"8c-nOsKa8fwBYaQ1AzCaTInVmpMwsg\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Sep 2025 08:06:24 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"ok\": true,\n    \"data\": {\n        \"name\": \"Aqil Sulthan\",\n        \"email\": \"aqilsulthaan@gmail.com\",\n        \"message\": \"Hello Huawei!\",\n        \"createdAt\": \"2025-09-15T08:06:24.897Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create FAIL [Invalid name] (POST /form)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d825e3b-19be-452e-a594-188553a7955e",
+						"exec": [
+							"pm.test(\"400 Bad Request\", () => pm.response.to.have.status(400));",
+							"const json = pm.response.json();",
+							"pm.test(\"INVALID_NAME\", () => pm.expect(json.error.code).to.eql(\"INVALID_NAME\"));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "24770514-85adc4d8-1e6f-4ae5-97fd-6281bca87702",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Aqil123\",\n  \"email\": \"aqil_invalid@example.com\",\n  \"message\": \"test invalid name\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/form",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"form"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "24770514-f9d20a81-4d08-4ad5-947f-c3b414fcb4a4",
+					"name": "Create FAIL [Invalid name] (POST /form)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Aqil123\",\n  \"email\": \"aqil_invalid@example.com\",\n  \"message\": \"test invalid name\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/form",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"form"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "86"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"56-TrfpLpjyQLrgC2YjLkDRPJ+YjuM\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Sep 2025 08:06:35 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"ok\": false,\n    \"error\": {\n        \"code\": \"INVALID_NAME\",\n        \"message\": \"Name must not contain numbers\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Create FAIL - [Email duplicate] (POST /form)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"409 Conflict\", () => pm.response.to.have.status(409));",
+							"const json = pm.response.json();",
+							"pm.test(\"EMAIL_DUPLICATE\", () => pm.expect(json.error.code).to.eql(\"EMAIL_DUPLICATE\"));"
+						],
+						"type": "text/javascript",
+						"id": "d693f96f-4c66-4a0f-b60e-70f1d58a65f2"
+					}
+				}
+			],
+			"id": "24770514-a2699cb0-ec86-4ae3-b836-22b7f4a094e4",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\": \"Aqil\",\n  \"email\": \"{{email_saved}}\",\n  \"message\": \"Duplicate email test\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/form",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"form"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "24770514-d9e81998-4c29-4b19-9202-0d300b86e83d",
+					"name": "Create FAIL - [Email duplicate] (POST /form)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Aqil\",\n  \"email\": \"aqilsulthaan@gmail.com\",\n  \"message\": \"Duplicate email test\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/form",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"form"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "79"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"4f-XzWFxeu5qmFTpfQ4XJ9JXVvSruw\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Sep 2025 08:06:55 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"ok\": false,\n    \"error\": {\n        \"code\": \"EMAIL_DUPLICATE\",\n        \"message\": \"Email already exist\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "List All (GET /form)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.to.have.status(200));",
+							"const json = pm.response.json();",
+							"pm.test(\"ok true\", () => pm.expect(json.ok).to.be.true);",
+							"pm.test(\"array data\", () => pm.expect(json.data).to.be.an('array'));",
+							"pm.test(\"count matches length\", () => pm.expect(json.count).to.eql(json.data.length));"
+						],
+						"type": "text/javascript",
+						"id": "b37507c8-dd5c-498c-a787-6d4e0ab7ae94"
+					}
+				}
+			],
+			"id": "24770514-7d43c6ea-1c05-479e-8786-ce6b9016ddf8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/form",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"form"
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "24770514-72b841f5-7b60-4484-bbd5-d0cbc726ef81",
+					"name": "List All (GET /form)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/form",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"form"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "271"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"10f-zYQRbOBXWqa7obtewloxs5s1BQw\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Sep 2025 08:08:04 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"ok\": true,\n    \"count\": 2,\n    \"data\": [\n        {\n            \"name\": \"Aqil Sulthan\",\n            \"email\": \"aqilsulthaan@gmail.com\",\n            \"message\": \"Hello Huawei!\",\n            \"createdAt\": \"2025-09-15T08:06:24.897Z\"\n        },\n        {\n            \"name\": \"Rafa Jauhari\",\n            \"email\": \"rafajauhari.rj@gmail.com\",\n            \"message\": \"Hi guys!\",\n            \"createdAt\": \"2025-09-15T08:07:53.582Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Search by Name/Email (GET /form?search={{search_query}})",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "475c068d-23df-465d-8ea7-33ca86416353",
+						"exec": [
+							"pm.test(\"200 OK\", () => pm.response.to.have.status(200));",
+							"const json = pm.response.json();",
+							"pm.test(\">=1 result\", () => pm.expect(json.count).to.be.at.least(1));",
+							"pm.test(\"array result\", () => pm.expect(json.data).to.be.an('array'));"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "57b7fab6-792b-471f-86f7-8aa9d2146cef",
+						"exec": [
+							"if (!pm.variables.get('search_query')) {\r",
+							"  pm.variables.set('search_query', 'aqil'); // default\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "24770514-bc6e8a1c-7cfd-4da1-a749-b350d39f6612",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/form?search={{search_query}}",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"form"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "{{search_query}}"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "24770514-b25a8c29-a785-4479-ada0-c3024fa8b1e8",
+					"name": "Search by Name",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/form?search=aqil",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"form"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "aqil"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "152"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"98-OfjfP7unqHSqbTgVep+dXz1J5F4\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Sep 2025 08:08:43 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"ok\": true,\n    \"count\": 1,\n    \"data\": [\n        {\n            \"name\": \"Aqil Sulthan\",\n            \"email\": \"aqilsulthaan@gmail.com\",\n            \"message\": \"Hello Huawei!\",\n            \"createdAt\": \"2025-09-15T08:06:24.897Z\"\n        }\n    ]\n}"
+				},
+				{
+					"id": "24770514-305d50b1-1a86-40ab-8535-b062bcd8934a",
+					"name": "Search by Email",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/form?search=rafajauhari.rj@gmail.com",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"form"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "rafajauhari.rj@gmail.com"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "149"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"95-Xa4B6aPW3BxIbmlhod9BIbtmZA4\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Sep 2025 08:09:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"ok\": true,\n    \"count\": 1,\n    \"data\": [\n        {\n            \"name\": \"Rafa Jauhari\",\n            \"email\": \"rafajauhari.rj@gmail.com\",\n            \"message\": \"Hi guys!\",\n            \"createdAt\": \"2025-09-15T08:07:53.582Z\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Search - NOT FOUND (GET /form?search=__no_match__)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"404 Not Found\", () => pm.response.to.have.status(404));",
+							"const json = pm.response.json();",
+							"pm.test(\"SEARCH_NOT_FOUND\", () => pm.expect(json.error.code).to.eql(\"SEARCH_NOT_FOUND\"));"
+						],
+						"type": "text/javascript",
+						"id": "1f82efa1-247f-4a46-a234-f0d7d48c2cc5"
+					}
+				}
+			],
+			"id": "24770514-a02d0ff0-c1c5-4ebe-a1b2-c2cc6c697418",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/form?search=__no_match__",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"form"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "__no_match__"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"id": "24770514-a6cacb3c-4b45-4903-bf26-ed43ae66b2f3",
+					"name": "Search - NOT FOUND (GET /form?search=__no_match__)",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/form?search=__dummysaja01",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"form"
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "__dummysaja01"
+								}
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "101"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"65-HVWbPRH1KHg49U8a0Sdyvp5iLaA\""
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 15 Sep 2025 08:10:21 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"responseTime": null,
+					"body": "{\n    \"ok\": false,\n    \"error\": {\n        \"code\": \"SEARCH_NOT_FOUND\",\n        \"message\": \"No record matched query '__dummysaja01'.\"\n    }\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000"
+		}
+	]
+}
